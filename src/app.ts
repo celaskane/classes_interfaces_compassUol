@@ -23,12 +23,39 @@ class Departamento {
     }
 }
 
-const contabilidade = new Departamento('abc', 'Contabilidade');
-contabilidade.addEmpregado('Alejandro');
-contabilidade.addEmpregado('Lisandro');
+class DepartamentoTI extends Departamento{
+    admins: string[]
+    constructor(id: string, admins: string[]) {
+        super(id, 'TI');
+        this.admins = admins;
+    }
+}
+
+class DepartamentoContabilidade extends Departamento{
+    constructor(id: string, private reports: string[]) {
+        super(id, 'TI');
+        this.reports = reports;
+    }
+    addReport(texto: string) {
+        this.reports.push(texto);
+    }
+    getReports() {
+        console.log(this.reports);
+    }
+}
+
+const ti = new DepartamentoTI('abc', ['Leandros']);
+ti.addEmpregado('Lisandro');
+ti.addEmpregado('Alejandro');
 /* contabilidade.empregados[2] = 'Leandros'; */   //acessível de fora da classe (adicoinar private)
-contabilidade.describe();
-contabilidade.mostraInformacaoEmpregado();
+ti.describe();
+ti.mostraInformacaoEmpregado();
+
+console.log(ti);
+
+const contabilidade = new DepartamentoContabilidade('def', []);
+contabilidade.addReport('Algo deu errado');
+console.log(contabilidade);
 
 /* const contabilidadeCopia = { nome: 'Qulauqer', describe: contabilidade.describe };
 contabilidadeCopia.describe(); */

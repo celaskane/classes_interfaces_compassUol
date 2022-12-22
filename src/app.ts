@@ -1,4 +1,5 @@
 class Departamento {
+    static anoFiscal = 2022;
     /* private id: string;
     private nome: string; */   //public padrão (não precisa declarar)
     protected empregados: string[] = [];    //protected permite utilização em classes herdadas
@@ -7,6 +8,11 @@ class Departamento {
     constructor(private readonly id: string, public nome: string) {
         /* this.nome = n;
         this.id = id; */
+        console.log(Departamento.anoFiscal);
+    }
+
+    static criaEmpregado(nome: string) {
+        return {nome: nome};
     }
 
     describe(this: Departamento) {
@@ -67,6 +73,9 @@ class DepartamentoContabilidade extends Departamento{
         console.log(this.reports);
     }
 }
+
+const empregado1 = Departamento.criaEmpregado('lalo')
+console.log('empregado1', empregado1);
 
 const ti = new DepartamentoTI('abc', ['Leandros']);
 ti.addEmpregado('Lisandro');

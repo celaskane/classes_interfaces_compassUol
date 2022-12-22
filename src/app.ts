@@ -40,6 +40,7 @@ class DepartamentoTI extends Departamento{
 
 class DepartamentoContabilidade extends Departamento{
     private ultimoReport: string;
+    private static instance: DepartamentoContabilidade;
     
     get maisRecenteReport() {
         if (this.ultimoReport){
@@ -55,10 +56,18 @@ class DepartamentoContabilidade extends Departamento{
         this.addReport(valor);
     }
 
-    constructor(id: string, private reports: string[]) {
+    //private constructor impede a criação de novos departamentos fora da classe
+    private constructor(id: string, private reports: string[]) {
         super(id, 'TI');
         this.reports = reports;
         this.ultimoReport = reports[0];
+    }
+
+    static getInstance() {
+        if (this.instance) {
+            return this.instance;
+        }
+        this.instance = new DepartamentoContabilidade('ghi', []);
     }
 
     describe() {
@@ -92,15 +101,16 @@ ti.mostraInformacaoEmpregado();
 
 console.log(ti);
 
-const contabilidade = new DepartamentoContabilidade('def', []);
-contabilidade.maisRecenteReport = '';
+//const contabilidade = new DepartamentoContabilidade('def', []);
+const contabilidade = DepartamentoContabilidade.getInstance();
+/* contabilidade.maisRecenteReport = '';
 contabilidade.addReport('Algo deu errado');
 contabilidade.addEmpregado('llllll');
-contabilidade.mostraInformacaoEmpregado();
+contabilidade.mostraInformacaoEmpregado(); */
 
-console.log(contabilidade.maisRecenteReport);
+console.log(contabilidade);
 
-contabilidade.describe();
+/* contabilidade.describe(); */
 
 
 

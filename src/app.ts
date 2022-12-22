@@ -3,7 +3,8 @@ class Departamento {
     private nome: string; */   //public padrão (não precisa declarar)
     private empregados: string[] = [];
 
-    constructor(private id: string, public nome: string) {
+    //readonly não permite mudanças
+    constructor(private readonly id: string, public nome: string) {
         /* this.nome = n;
         this.id = id; */
     }

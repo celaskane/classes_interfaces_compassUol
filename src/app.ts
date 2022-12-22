@@ -1,11 +1,11 @@
-class Departamento {
+abstract class Departamento {
     static anoFiscal = 2022;
     /* private id: string;
     private nome: string; */   //public padrão (não precisa declarar)
     protected empregados: string[] = [];    //protected permite utilização em classes herdadas
 
     //readonly não permite mudanças
-    constructor(private readonly id: string, public nome: string) {
+    constructor(protected readonly id: string, public nome: string) {
         /* this.nome = n;
         this.id = id; */
         console.log(Departamento.anoFiscal);
@@ -15,9 +15,7 @@ class Departamento {
         return {nome: nome};
     }
 
-    describe(this: Departamento) {
-        console.log(`Departamento (${this.id}): ${this.nome}`);
-    }
+    abstract describe(this: Departamento): void;
 
     addEmpregado(empregado: string) {
         this.empregados.push(empregado);
@@ -34,6 +32,9 @@ class DepartamentoTI extends Departamento{
     constructor(id: string, admins: string[]) {
         super(id, 'TI');
         this.admins = admins;
+    }
+    describe() {
+        console.log('Departamento TI - ID: ' + this.id);
     }
 }
 
@@ -59,6 +60,11 @@ class DepartamentoContabilidade extends Departamento{
         this.reports = reports;
         this.ultimoReport = reports[0];
     }
+
+    describe() {
+        console.log('Departamento de Contabilidade - ID:' + this.id);
+    }
+
     addEmpregado(nome: string): void {
         if (nome === 'Alejandro') {
             return;
@@ -93,6 +99,9 @@ contabilidade.addEmpregado('llllll');
 contabilidade.mostraInformacaoEmpregado();
 
 console.log(contabilidade.maisRecenteReport);
+
+contabilidade.describe();
+
 
 
 /* const contabilidadeCopia = { nome: 'Qulauqer', describe: contabilidade.describe };

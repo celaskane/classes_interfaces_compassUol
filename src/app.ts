@@ -1,13 +1,15 @@
 class Departamento {
-    nome: string;   //public padrão (não precisa declarar)
+    /* private id: string;
+    private nome: string; */   //public padrão (não precisa declarar)
     private empregados: string[] = [];
 
-    constructor(n: string) {
-        this.nome = n;
+    constructor(private id: string, public nome: string) {
+        /* this.nome = n;
+        this.id = id; */
     }
 
     describe(this: Departamento) {
-        console.log('Departamento: ' + this.nome);
+        console.log(`Departamento (${this.id}): ${this.nome}`);
     }
 
     addEmpregado(empregado: string) {
@@ -20,7 +22,7 @@ class Departamento {
     }
 }
 
-const contabilidade = new Departamento('Contabilidade');
+const contabilidade = new Departamento('abc', 'Contabilidade');
 contabilidade.addEmpregado('Alejandro');
 contabilidade.addEmpregado('Lisandro');
 /* contabilidade.empregados[2] = 'Leandros'; */   //acessível de fora da classe (adicoinar private)

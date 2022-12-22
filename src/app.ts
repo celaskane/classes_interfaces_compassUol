@@ -1,7 +1,7 @@
 class Departamento {
     /* private id: string;
     private nome: string; */   //public padrão (não precisa declarar)
-    private empregados: string[] = [];
+    protected empregados: string[] = [];    //protected permite utilização em classes herdadas
 
     //readonly não permite mudanças
     constructor(private readonly id: string, public nome: string) {
@@ -36,6 +36,12 @@ class DepartamentoContabilidade extends Departamento{
         super(id, 'TI');
         this.reports = reports;
     }
+    addEmpregado(nome: string): void {
+        if (nome === 'Alejandro') {
+            return;
+        }
+        this.empregados.push(nome);
+    }
     addReport(texto: string) {
         this.reports.push(texto);
     }
@@ -55,7 +61,8 @@ console.log(ti);
 
 const contabilidade = new DepartamentoContabilidade('def', []);
 contabilidade.addReport('Algo deu errado');
-console.log(contabilidade);
+contabilidade.addEmpregado('llllll');
+contabilidade.mostraInformacaoEmpregado();
 
 /* const contabilidadeCopia = { nome: 'Qulauqer', describe: contabilidade.describe };
 contabilidadeCopia.describe(); */

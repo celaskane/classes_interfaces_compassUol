@@ -1,3 +1,15 @@
+//type AddFn = (a: number, b: number) => number;
+//função anônima
+interface AddFn {
+    (a: number, b: number): number;
+}
+
+let soma: AddFn;
+
+soma = (n1: number, n2: number) => {
+    return n1 + n2;
+};
+
 interface Nomeado {
     readonly nome: string;
 }

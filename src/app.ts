@@ -32,9 +32,26 @@ class DepartamentoTI extends Departamento{
 }
 
 class DepartamentoContabilidade extends Departamento{
+    private ultimoReport: string;
+    
+    get maisRecenteReport() {
+        if (this.ultimoReport){
+            return this.ultimoReport;
+        }
+        throw new Error('Nenhum report encontrado');
+    }
+
+    set maisRecenteReport(valor: string) {
+        if (!valor){
+            throw new Error('Por favor, insira um valor válido!');
+        }
+        this.addReport(valor);
+    }
+
     constructor(id: string, private reports: string[]) {
         super(id, 'TI');
         this.reports = reports;
+        this.ultimoReport = reports[0];
     }
     addEmpregado(nome: string): void {
         if (nome === 'Alejandro') {
@@ -44,6 +61,7 @@ class DepartamentoContabilidade extends Departamento{
     }
     addReport(texto: string) {
         this.reports.push(texto);
+        this.ultimoReport = texto;
     }
     getReports() {
         console.log(this.reports);
@@ -60,9 +78,13 @@ ti.mostraInformacaoEmpregado();
 console.log(ti);
 
 const contabilidade = new DepartamentoContabilidade('def', []);
+contabilidade.maisRecenteReport = '';
 contabilidade.addReport('Algo deu errado');
 contabilidade.addEmpregado('llllll');
 contabilidade.mostraInformacaoEmpregado();
+
+console.log(contabilidade.maisRecenteReport);
+
 
 /* const contabilidadeCopia = { nome: 'Qulauqer', describe: contabilidade.describe };
 contabilidadeCopia.describe(); */
